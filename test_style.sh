@@ -2,4 +2,5 @@
 
 find . -type f -name "*.py" | grep -v '/airbnb_venv/' | while read -r file_path; do
     flake8 "$file_path"
+    chmod u+x "$file_path"
 done
