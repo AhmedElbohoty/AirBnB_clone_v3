@@ -42,7 +42,7 @@ def user_delete(user_id):
     user.delete()
     storage.save()
 
-    return jsonify({})
+    return jsonify({}), 200
 
 
 @app_views.route('/users/', methods=['POST'],
