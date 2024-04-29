@@ -1,4 +1,4 @@
 #!/usr/bin/python3
 """
-View for Places
+View for Amenities
 """
