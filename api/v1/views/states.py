@@ -76,7 +76,7 @@ def state_put(state_id):
     for key, value in data.items():
         ignore_keys = ["id", "created_at", "updated_at"]
         if key not in ignore_keys:
-            state.bm_update(key, value)
+            state.update(key, value)
 
     state.save()
 
