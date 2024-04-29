@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-View for Users
+View for Users 
 """
 
 from flask import jsonify, request, abort
