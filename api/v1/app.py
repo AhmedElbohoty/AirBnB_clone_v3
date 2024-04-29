@@ -2,14 +2,17 @@
 """ The app v1"""
 
 from os import getenv
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
 from models import storage
 from api.v1.views import app_views
 from flask_cors import CORS
 
 app = Flask(__name__)
+# To format json in a pretty-printed style
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+
 app.register_blueprint(app_views)
-cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 
 
 @app.teardown_appcontext
@@ -22,15 +25,11 @@ def teardown_db(exception):
 def page_not_found(e):
     """ Handle not found page """
     status = {"error": "Not found"}
-    return jsonify(status), 404
+    return make_response(jsonify(status), 404)
 
 
 if __name__ == '__main__':
-    try:
-        host = getenv('HBNB_API_HOST')
-        port = getenv('HBNB_API_PORT')
-    except Exception:
-        host = '0.0.0.0'
-        port = '5000'
+    host = getenv('HBNB_API_HOST', default='0.0.0.0')
+    port = getenv('HBNB_API_PORT', default=5000)
 
-    app.run(host=host, port=port)
+    app.run(host, int(port), threaded=True)

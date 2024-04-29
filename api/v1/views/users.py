@@ -61,7 +61,7 @@ def create_user():
     user = User(**body)
     user.save()
 
-    return (jsonify(user.to_dict()), 201)
+    return jsonify(user.to_dict()), 201
 
 
 @app_views.route('/users/<string:user_id>', methods=['PUT'],
@@ -85,4 +85,4 @@ def user_put(user_id):
 
     storage.save()
 
-    return (jsonify(user.to_dict()), 200)
+    return jsonify(user.to_dict()), 200
