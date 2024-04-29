@@ -10,61 +10,63 @@ from api.v1.views import app_views
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
-def states_all():
+def get_states():
     """ Returns list of all State objects """
     # Get all states from storage
-    values = storage.all("State").values()
+    states = storage.all(State).values()
+    res = [obj.to_dict() for obj in states]
 
-    states = []
-    for state in values:
-        states.append(state.to_dict())
-    return jsonify(states)
+    return jsonify(res)
 
 
-@app_views.route('/states/<state_id>', methods=['GET'])
-def state_get(state_id):
+@app_views.route('/states/<string:state_id>', methods=['GET'],
+                 strict_slashes=False)
+def get_state(state_id):
     """ Get state by id """
-    state = storage.get("State", state_id)
-
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
 
     return jsonify(state.to_dict())
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'])
-def state_delete(state_id):
+@app_views.route('/states/<string:state_id>', methods=['DELETE'],
+                 strict_slashes=False)
+def delete_state(state_id):
     """ Delete state by id """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
 
-    storage.delete(state)
+    state.delete()
     storage.save()
-    return jsonify({}), 200
+
+    return jsonify({})
 
 
-@app_views.route('/states', methods=['POST'], strict_slashes=False)
+@app_views.route('/states/', methods=['POST'],
+                 strict_slashes=False)
 def state_post():
     """ Create new states """
     # Handle request body
-    data = request.get_json()
+    body = request.get_json()
 
-    if data is None:
+    if body is None:
         abort(400, "Not a JSON")
-    if 'name' not in data:
+    if 'name' not in body:
         abort(400, "Missing name")
 
-    state = State(**data)
+    state = State(**body)
     state.save()
 
     return jsonify(state.to_dict()), 201
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'])
+@app_views.route('/states/<string:state_id>', methods=['PUT'],
+                 strict_slashes=False)
 def state_put(state_id):
     """ Update state """
-    state = storage.get("State", state_id)
+    state = storage.get(State, state_id)
 
     if state is None:
         abort(404)
@@ -73,11 +75,11 @@ def state_put(state_id):
     data = request.get_json()
     if data is None:
         abort(400, "Not a JSON")
-    for key, value in data.items():
+    for k, v in data.items():
         ignore_keys = ["id", "created_at", "updated_at"]
-        if key not in ignore_keys:
-            state.update(key, value)
+        if k not in ignore_keys:
+            setattr(state, k, v)
 
-    state.save()
+    storage.save()
 
     return jsonify(state.to_dict()), 200
