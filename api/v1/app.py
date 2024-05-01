@@ -2,10 +2,10 @@
 """ The app v1"""
 
 from os import getenv
+from flask_cors import CORS
 from flask import Flask, jsonify, make_response
 from models import storage
 from api.v1.views import app_views
-from flask_cors import CORS
 
 app = Flask(__name__)
 # To format json in a pretty-printed style
