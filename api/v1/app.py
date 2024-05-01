@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" The endpoint (route) will be to return the status of your API:
+"""
+The endpoint (route) will be to return the status of your API:
 """
 from os import getenv
 from flask_cors import CORS
@@ -24,8 +25,7 @@ def teardown_db(exception):
 @app.errorhandler(404)
 def page_not_found(e):
     """ Handle not found page """
-    status = {"error": "Not found"}
-    return make_response(jsonify(status), 404)
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == '__main__':

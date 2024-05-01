@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" View for Users """
+"""
+View for Users - users module
+"""
 from flask import jsonify, request, abort
 from models import storage
 from models.user import User
@@ -18,7 +20,7 @@ def get_users():
 @app_views.route('/users/<string:user_id>', methods=['GET'],
                  strict_slashes=False)
 def get_user(user_id):
-    """ Get user """
+    """ Get user by the user id """
     user = storage.get(User, user_id)
 
     if user is None:
@@ -30,7 +32,7 @@ def get_user(user_id):
 @app_views.route('/users/<string:user_id>', methods=['DELETE'],
                  strict_slashes=False)
 def user_delete(user_id):
-    """ Delete user """
+    """ Delete user by user id """
     user = storage.get(User, user_id)
 
     if user is None:
@@ -45,7 +47,7 @@ def user_delete(user_id):
 @app_views.route('/users/', methods=['POST'],
                  strict_slashes=False)
 def create_user():
-    """ Create user """
+    """ Create new user """
     # Handle request body
     body = request.get_json()
     if body is None:

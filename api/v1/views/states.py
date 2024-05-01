@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" View for States that handles all RESTful API actions """
+"""
+View for States that handles all RESTful API actions
+"""
 from flask import jsonify, request, abort
 from models import storage
 from models.state import State
