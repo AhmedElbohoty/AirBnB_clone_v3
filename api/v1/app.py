@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" The app v1"""
+""" The endpoint (route) will be to return the status of your API:
+"""
 from os import getenv
 from flask_cors import CORS
 from flask import Flask, jsonify, make_response
