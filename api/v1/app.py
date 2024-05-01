@@ -9,9 +9,6 @@ from models import storage
 from api.v1.views import app_views
 
 app = Flask(__name__)
-# To format json in a pretty-printed style
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-
 app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 
