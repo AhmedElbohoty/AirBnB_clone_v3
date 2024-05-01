@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """ The app v1"""
-
 from os import getenv
 from flask_cors import CORS
 from flask import Flask, jsonify, make_response

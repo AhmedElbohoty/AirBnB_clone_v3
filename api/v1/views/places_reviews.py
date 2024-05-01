@@ -1,9 +1,5 @@
 #!/usr/bin/python3
-"""
-View for Reviews
-"""
-
-
+""" View for Reviews """
 from flask import jsonify, request, abort
 from models import storage
 from models.place import Place

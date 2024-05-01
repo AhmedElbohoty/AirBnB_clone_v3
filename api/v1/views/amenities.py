@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-View for Amenities
-"""
+""" View for Amenities """
 from flask import jsonify, request, abort, make_response
 from models import storage
 from models.amenity import Amenity

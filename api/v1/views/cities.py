@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-View for Cities
-"""
+""" View for Cities """
 from flask import jsonify, abort, request
 from models import storage
 from api.v1.views import app_views
