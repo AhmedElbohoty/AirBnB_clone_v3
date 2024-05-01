@@ -83,7 +83,7 @@ class FileStorage:
             return None
 
         objects = self.all(cls)
-        obj_id = f"{cls.__name__}.{id}"
+        obj_id = "{}.{}".format(cls.__name__, id)
         for key, value in objects.items():
             if key == obj_id:
                 return value
